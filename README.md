@@ -12,7 +12,7 @@ Dự án này là một ứng dụng quản lý công việc giúp người dùn
 
  ## Hướng dẫn cài đặt
  ### 1. Clone repository:
-  git clone https://github.com/<your-username>/ptud-gk-de-2.git
+  git clone [https://github.com/<your-username>/ptud-gk-de-2.git](https://github.com/NguyenPhuocDien/ptud-gk-de-2.git)
   cd ptud-gk-de-2
 ### 2. Tạo và kích hoạt môi trường ảo:
   python -m venv venv
