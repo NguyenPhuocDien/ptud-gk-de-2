@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if view_type == 'add' %}
+        Thêm Công Việc Mới
+    {% elif view_type == 'edit' %}
+        Sửa Công Việc
+    {% elif view_type == 'add_category' %}
+        Thêm Danh Mục Mới
+    {% elif view_type == 'edit_category' %}
+        Sửa Danh Mục
+    {% endif %}
+    - Quản Lý Công Việc
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-lg border-0 rounded-lg">
+            <div class="card-header bg-primary text-white text-center py-3">
+                <h3 class="mb-0">
+                    {% if view_type == 'add' %}
+                        <i class="fas fa-plus-circle me-2"></i>Thêm Công Việc Mới
+                    {% elif view_type == 'edit' %}
+                        <i class="fas fa-edit me-2"></i>Sửa Công Việc
+                    {% elif view_type == 'add_category' %}
+                        <i class="fas fa-plus-circle me-2"></i>Thêm Danh Mục Mới
+                    {% elif view_type == 'edit_category' %}
+                        <i class="fas fa-edit me-2"></i>Sửa Danh Mục
+                    {% endif %}
+                </h3>
+            </div>
+            <div class="card-body p-4">
+                {% if view_type in ['add', 'edit'] %}
+                    <!-- Task Form -->
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Tiêu đề <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="title" name="title" required
+                                   value="{{ task.title if task else '' }}">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Mô tả</label>
+                            <textarea class="form-control" id="description" name="description" rows="3">{{ task.description if task else '' }}</textarea>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="status" class="form-label">Trạng thái <span class="text-danger">*</span></label>
+                                <select class="form-select" id="status" name="status" required>
+                                    <option value="đang chờ" {% if task and task.status == 'đang chờ' %}selected{% endif %}>Đang chờ</option>
+                                    <option value="đang thực hiện" {% if task and task.status == 'đang thực hiện' %}selected{% endif %}>Đang thực hiện</option>
+                                    <option value="hoàn thành" {% if task and task.status == 'hoàn thành' %}selected{% endif %}>Hoàn thành</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="priority" class="form-label">Độ ưu tiên <span class="text-danger">*</span></label>
+                                <select class="form-select" id="priority" name="priority" required>
+                                    <option value="cao" {% if task and task.priority == 'cao' %}selected{% endif %}>Cao</option>
+                                    <option value="trung bình" {% if task and task.priority == 'trung bình' %}selected{% endif %}>Trung bình</option>
+                                    <option value="thấp" {% if task and task.priority == 'thấp' %}selected{% endif %}>Thấp</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="category_id" class="form-label">Danh mục</label>
+                                <select class="form-select" id="category_id" name="category_id">
+                                    <option value="">-- Không có danh mục --</option>
+                                    {% for category in categories %}
+                                        <option value="{{ category.id }}" 
+                                                {% if task and task.category_id == category.id %}selected{% endif %}>
+                                            {{ category.name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="due_date" class="form-label">Hạn hoàn thành</label>
+                                <input type="date" class="form-control" id="due_date" name="due_date"
+                                       value="{{ task.due_date.strftime('%Y-%m-%d') if task and task.due_date else '' }}">
+                            </div>
+                        </div>
+                        
+                        {% if session.role == 'admin' and users %}
+                            <div class="mb-3">
+                                <label for="user_id" class="form-label">Người thực hiện <span class="text-danger">*</span></label>
+                                <select class="form-select" id="user_id" name="user_id" required>
+                                    {% for user in users %}
+                                        <option value="{{ user.id }}" 
+                                                {% if task and task.user_id == user.id %}selected
+                                                {% elif not task and user.id == session.user_id %}selected{% endif %}>
+                                            {{ user.username }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-times me-1"></i>Hủy
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i>Lưu
+                            </button>
+                        </div>
+                    </form>
+                {% elif view_type in ['add_category', 'edit_category'] %}
+                    <!-- Category Form -->
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Tên danh mục <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="name" name="name" required
+                                   value="{{ category.name if category else '' }}">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="color" class="form-label">Màu sắc <span class="text-danger">*</span></label>
+                            <select class="form-select" id="color" name="color" required>
+                                <option value="primary" {% if category and category.color == 'primary' %}selected{% endif %}>Xanh dương</option>
+                                <option value="secondary" {% if category and category.color == 'secondary' %}selected{% endif %}>Xám</option>
+                                <option value="success" {% if category and category.color == 'success' %}selected{% endif %}>Xanh lá</option>
+                                <option value="danger" {% if category and category.color == 'danger' %}selected{% endif %}>Đỏ</option>
+                                <option value="warning" {% if category and category.color == 'warning' %}selected{% endif %}>Vàng</option>
+                                <option value="info" {% if category and category.color == 'info' %}selected{% endif %}>Xanh nhạt</option>
+                                <option value="dark" {% if category and category.color == 'dark' %}selected{% endif %}>Đen</option>
+                            </select>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a href="{{ url_for('list_categories') }}" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-times me-1"></i>Hủy
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i>Lưu
+                            </button>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

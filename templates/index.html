@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}Trang Chủ - Quản Lý Công Việc{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Tiêu đề chính -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">Quản Lý Công Việc Hiệu Quả</h1>
+        <p class="lead text-muted">Hệ thống quản lý công việc giúp bạn theo dõi tiến độ và hoàn thành mục tiêu.</p>
+    </div>
+
+    <!-- Các thẻ tính năng chính -->
+    <div class="row mb-5">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="text-primary mb-3">
+                        <i class="fas fa-tasks fa-3x"></i>
+                    </div>
+                    <h4 class="card-title">Quản Lý Task</h4>
+                    <p class="card-text">Tạo và quản lý các công việc của bạn một cách dễ dàng, theo dõi tiến độ và thời gian hoàn thành.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="text-success mb-3">
+                        <i class="fas fa-chart-line fa-3x"></i>
+                    </div>
+                    <h4 class="card-title">Theo Dõi Tiến Độ</h4>
+                    <p class="card-text">Theo dõi trạng thái công việc từ khi bắt đầu đến khi hoàn thành, với thời gian cụ thể.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="text-warning mb-3">
+                        <i class="fas fa-users fa-3x"></i>
+                    </div>
+                    <h4 class="card-title">Phân Quyền</h4>
+                    <p class="card-text">Hệ thống phân quyền rõ ràng giữa admin và user, giúp quản lý công việc hiệu quả hơn.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nút đăng nhập/đăng ký -->
+    <div class="text-center mb-5">
+        <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg me-2">Đăng Nhập</a>
+        <a href="{{ url_for('register') }}" class="btn btn-outline-primary btn-lg">Đăng Ký</a>
+    </div>
+
+    <!-- Tính năng nổi bật -->
+    <h2 class="text-center mb-4">Tính Năng Nổi Bật</h2>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0 text-success me-3">
+                            <i class="fas fa-check-circle fa-2x"></i>
+                        </div>
+                        <div>
+                            <h5>Quản Lý Công Việc Đơn Giản</h5>
+                            <p class="text-muted mb-0">Tạo, chỉnh sửa và xóa công việc một cách dễ dàng với giao diện thân thiện.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0 text-primary me-3">
+                            <i class="fas fa-clock fa-2x"></i>
+                        </div>
+                        <div>
+                            <h5>Theo Dõi Thời Gian</h5>
+                            <p class="text-muted mb-0">Ghi lại thời gian tạo và hoàn thành công việc để đánh giá hiệu suất.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0 text-danger me-3">
+                            <i class="fas fa-user-shield fa-2x"></i>
+                        </div>
+                        <div>
+                            <h5>Phân Quyền Admin/User</h5>
+                            <p class="text-muted mb-0">Hệ thống phân quyền rõ ràng giữa admin và user, với các chức năng riêng biệt.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0 text-warning me-3">
+                            <i class="fas fa-user-circle fa-2x"></i>
+                        </div>
+                        <div>
+                            <h5>Tùy Chỉnh Hồ Sơ</h5>
+                            <p class="text-muted mb-0">Tải lên avatar cá nhân và quản lý thông tin hồ sơ của bạn.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-4 mt-5">
+    <div class="container">
+        <p class="mb-0">© 2023 Quản Lý Công Việc. Tất cả quyền được bảo lưu.</p>
+    </div>
+</footer>
+{% endblock %} 
